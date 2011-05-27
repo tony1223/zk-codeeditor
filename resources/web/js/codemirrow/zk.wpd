@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<package name="codemirrow" language="xul/html">
+
+	<!-- CodeMirror-2.01 -->
+	<script src="lib/codemirror.js" />
+	<script src="lib/overlay.js" />
+
+	<script src="lib/mode/xml/xml.js" />	
+	<script src="lib/mode/clike/clike.js" />
+	<script src="lib/mode/css/css.js" />
+	<script src="lib/mode/diff/diff.js" />
+	<script src="lib/mode/haskell/haskell.js" />
+	<script src="lib/mode/htmlmixed/htmlmixed.js" />
+	<script src="lib/mode/javascript/javascript.js" />
+	<script src="lib/mode/php/php.js" />
+	<script src="lib/mode/plsql/plsql.js" />
+	<script src="lib/mode/python/python.js" />
+	<script src="lib/mode/rst/rst.js" />
+	<script src="lib/mode/smalltalk/smalltalk.js" />
+	<script src="lib/mode/stex/stex.js" />
+
+	
+	<widget name="CodeMirrow" />
+</package>
