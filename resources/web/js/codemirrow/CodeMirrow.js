@@ -1,5 +1,5 @@
 function delegater(member){
-	return (function(){
+	return (function () {
 		if(this.desktop)
 			return this._instance[member]();
 	});
@@ -10,16 +10,16 @@ codemirrow.CodeMirrow = zk.$extends(zk.Widget, {
 	_instance:null,
 	_version:2,
 	$define: {
-		autosize:function(){
+		autosize:function () {
 			if(this.desktop)
 				this._getCodeMirror().css("height","auto");
 		},
-		text: function(){ //this function will be called after setText() .
+		text: function () { //this function will be called after setText() .
 			if(this.desktop)
 				this._instance.setValue(this._text); 
 			
 		},
-		mode:function(){
+		mode:function () {
 			
 			if(this._mode == "xhtml"){
 				this.setHtmlMode(true);
@@ -61,11 +61,11 @@ codemirrow.CodeMirrow = zk.$extends(zk.Widget, {
 	redo:delegater("redo"),
 	historySize:delegater("historySize"),
 	
-	focus_:function(){
+	focus_:function () {
 		if(this.desktop)
 			this._instance.focus();
 	},
-	prepareInitOption_:function(){
+	prepareInitOption_:function () {
 		var ret = {
 			htmlMode:this._htmlMode,
 			singleLineStringErrors:this._singleLineStringErrors,
@@ -82,10 +82,10 @@ codemirrow.CodeMirrow = zk.$extends(zk.Widget, {
 		}
 		return ret;
 	},
-	_getCodeMirror:function(){
+	_getCodeMirror:function () {
 		return jq("> .CodeMirror",this);
 	},
-	bind_: function () {
+	bind_:function () {
 		this.$supers(codemirrow.CodeMirrow,'bind_', arguments);
 		this._instance = CodeMirror.fromTextArea(this.$n("real"),
 				this.prepareInitOption_()
@@ -98,13 +98,9 @@ codemirrow.CodeMirrow = zk.$extends(zk.Widget, {
 			wrap.css("height","auto");
 		else if(this._height)
 			wrap.css("height",this._height);
-	
-		
-		//A example for domListen_ , REMEMBER to do domUnlisten in unbind_.
-		//this.domListen_(this.$n("cave"), "onClick", "_doItemsClick");
 	},
 
-	unbind_: function () {
+	unbind_:function () {
 		this._instance = null;
 		this.$supers(codemirrow.CodeMirrow,'unbind_', arguments);
 	},
