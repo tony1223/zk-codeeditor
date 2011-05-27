@@ -61,7 +61,7 @@ codemirrow.CodeMirrow = zk.$extends(zk.Widget, {
 	redo:delegater("redo"),
 	historySize:delegater("historySize"),
 	
-	doFocus_:function(){
+	focus_:function(){
 		if(this.desktop)
 			this._instance.focus();
 	},
