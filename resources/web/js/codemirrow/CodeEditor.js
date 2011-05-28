@@ -102,8 +102,8 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 				},
 				onBlur :function(instance){
 					var val = instance.getValue();
-					if (val != this._value) {
-						this._value = val;
+					if (val != wgt._value) {
+						wgt._value = val;
 						wgt.fire("onChange", {
 							value: val
 						});
@@ -133,6 +133,12 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 		this._instance = CodeMirror.fromTextArea(this.$n("real"),
 				this.prepareInitOption_()
 			);
+		
+		//TODO review this.
+		//The instance will trim the string , so we use the new value as value,
+		//to prevent it send onChange.
+		
+		this._value = this._instance.getValue(); 
 		var wrap  = this._getCodeMirror();
 		if(this._width)
 			wrap.css("width",this._width);
