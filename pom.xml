@@ -21,7 +21,7 @@
 		<zk.version>5.0.7</zk.version>
 
 	</properties>
-	<version>0.8.0</version>
+	<version>0.9.0</version>
 	<licenses>
 		<license>
 			<name>GNU LESSER GENERAL PUBLIC LICENSE, Version 3</name>
