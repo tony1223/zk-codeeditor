@@ -18,7 +18,7 @@
 		<jython.version>2.2.1</jython.version>
 		<js.version>1.7R1</js.version>
 		<zuljsp.version>1.5</zuljsp.version>
-		<zk.version>5.0.8-SNAPSHOT</zk.version>
+		<zk.version>5.0.7</zk.version>
 
 	</properties>
 	<version>0.8.0</version>
@@ -193,5 +193,20 @@
 				<directory>${project.basedir}/resources/</directory>
 			</resource>
 		</resources>
+		<plugins>
+			<!-- add plug-in confiugration here -->
+			<plugin>
+				<groupId>org.zkoss.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin-zk</artifactId>
+				<version>1.1.6</version>
+			<executions>
+				<execution>
+					<goals>
+						<goal>compress</goal>
+					</goals>
+				</execution>
+			</executions>						
+			</plugin>	
+			</plugins>
 	</build>
 </project>
