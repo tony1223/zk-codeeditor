@@ -13,22 +13,10 @@
 	<component>
 		<component-name>codeeditor</component-name> <!-- required -->
 		<component-class>org.zkoss.codemirror.CodeEditor</component-class> <!-- required -->
-		<widget-class>codemirrow.CodeMirrow</widget-class> <!-- required -->
+		<widget-class>codemirrow.CodeEditor</widget-class> <!-- required -->
 		<mold>
 			<mold-name>default</mold-name>
-			<mold-uri>mold/codemirrow.js</mold-uri>
-
-			<!--
-			== Tip in advance ==
-				You don't have to specify a css.dsp if you need not ,
-				but usually you need it.
-
-				You could assign a .css file ,too.
-
-				The css.dsp is almost as same as CSS file ,
-				but have more powerful enhancement.	(like EL support.)
-			====
-			-->
+			<mold-uri>mold/codeeditor.js</mold-uri>
 			<css-uri>css/codemirrow.css.dsp</css-uri>
 		</mold>
 	</component>

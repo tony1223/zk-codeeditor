@@ -1,19 +1,40 @@
 package org.zkoss.codemirror;
 
+import java.util.Map;
+
 import org.zkoss.lang.Objects;
 import org.zkoss.mesh.api.ICodeEditor;
 import org.zkoss.mesh.api.IPythonEditor;
 import org.zkoss.mesh.api.IReStructuredTextEditor;
 import org.zkoss.mesh.api.IXMLeditor;
+import org.zkoss.zk.au.AuRequest;
 import org.zkoss.zk.ui.HtmlBasedComponent;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.event.InputEvent;
 
+/**
+ * Note : for some reason (as implementation as code mirrow) , The events we
+ * didn't support very well , currently we supported only
+ * onFocus,onBlur,onChange .
+ * 
+ * If you need more event, please give us reason and use case, will try to
+ * handle it . (if possible ) ;)
+ * 
+ * Currently in this version we didn't support marker , if you need it , please
+ * mail me a feature request. (tonylovejava[at]gmail.com)
+ * 
+ * @author TonyQ
+ */
 public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPythonEditor, IReStructuredTextEditor,
 		IXMLeditor {
 
+	static {
+		addClientEvent(CodeEditor.class, Events.ON_CHANGE, CE_IMPORTANT | CE_DUPLICATE_IGNORE);
+	}
+
 	private boolean _autosize;
-	
-	
-	private String _text;
+
+	private String _value;
 
 	private String _mode;
 
@@ -25,7 +46,68 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 
 	private boolean _alignCDATA;
 
+	private int _readOnly = TYPE_EDITABLE;
+
+	/**
+	 * Here we follow the codemirrow naming , and use our naming only in
+	 * interface level. (Default:true)
+	 */
+	private boolean _lineNumbers = true;
+
 	private String _verbatim;
+
+	private int _tabIndex = -1;
+
+	// super//
+	protected void renderProperties(org.zkoss.zk.ui.sys.ContentRenderer renderer) throws java.io.IOException {
+		super.renderProperties(renderer);
+
+		render(renderer, "value", _value);
+		render(renderer, "mode", _mode);
+
+		if (_htmlMode)
+			render(renderer, "htmlMode", _htmlMode);
+
+		if (_singleLineStringErrors)
+			render(renderer, "singleLineStringErrors", _singleLineStringErrors);
+
+		if (_version != IPythonEditor.VERSION_2)
+			render(renderer, "version", _version);
+
+		if (_alignCDATA)
+			render(renderer, "alignCDATA", _alignCDATA);
+
+		if (_verbatim != null)
+			render(renderer, "verbatim", _verbatim);
+
+		if (_autosize)
+			render(renderer, "autosize", _autosize);
+
+		if (_tabIndex != -1)
+			render(renderer, "tabIndex", _tabIndex);
+
+		if (!_lineNumbers)
+			render(renderer, "lineNumbers", _lineNumbers);
+
+		if (_readOnly != TYPE_EDITABLE)
+			render(renderer, "readOnly", _readOnly);
+	}
+
+	@Override
+	public void service(AuRequest request, boolean everError) {
+
+		if (Events.ON_CHANGE.equals(request.getCommand())) {
+			String value = this._value;
+			final Map data = request.getData();
+
+			final Object val = data.get("value");
+			String newValue = val == null ? "" : val.toString();
+			this._value = newValue;
+			Events.postEvent(new InputEvent(request.getCommand(), this, newValue, value));
+
+		} else
+			super.service(request, everError);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -51,50 +133,22 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.zkoss.mesh.ICodemirror#getText()
+	 * @see org.zkoss.mesh.ICodemirror#getValue()
 	 */
-	public String getText() {
-		return _text;
+	public String getValue() {
+		return _value;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.zkoss.mesh.ICodemirror#setText(java.lang.String)
+	 * @see org.zkoss.mesh.ICodemirror#setValue(java.lang.String)
 	 */
-	public void setText(String text) {
-		if (!Objects.equals(_text, text)) {
-			_text = text;
-			smartUpdate("text", _text);
+	public void setValue(String text) {
+		if (!Objects.equals(_value, text)) {
+			_value = text;
+			smartUpdate("value", _value);
 		}
-	}
-
-	// super//
-	protected void renderProperties(org.zkoss.zk.ui.sys.ContentRenderer renderer) throws java.io.IOException {
-		super.renderProperties(renderer);
-
-		render(renderer, "text", _text);
-		render(renderer, "mode", _mode);
-		
-		if(_htmlMode)
-			render(renderer, "htmlMode", _htmlMode);
-		
-		if(_singleLineStringErrors)
-			render(renderer, "singleLineStringErrors", _singleLineStringErrors);
-		
-		if( _version != IPythonEditor.VERSION_2)
-			render(renderer, "version", _version);
-		
-		if(_alignCDATA)
-			render(renderer, "alignCDATA", _alignCDATA);
-		
-		if(_verbatim != null)
-			render(renderer, "verbatim", _verbatim);
-		
-		if(_autosize)
-			render(renderer, "autosize", _autosize);
-		
-
 	}
 
 	/*
@@ -111,7 +165,7 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	}
 
 	/**
-	 * XML mode only 
+	 * XML mode only
 	 */
 	public void setHtmlMode(boolean htmlMode) {
 		if (!Objects.equals(_htmlMode, htmlMode)) {
@@ -125,7 +179,7 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	}
 
 	/**
-	 * XML mode only 
+	 * XML mode only
 	 */
 	public void setAlignCDATA(boolean alignCDATA) {
 		if (!Objects.equals(_alignCDATA, alignCDATA)) {
@@ -135,7 +189,7 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	}
 
 	/**
-	 * ReStructuredText mode only 
+	 * ReStructuredText mode only
 	 */
 	public void setVerbatim(String verbatim) {
 		if (!Objects.equals(_verbatim, verbatim)) {
@@ -153,7 +207,7 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	}
 
 	/**
-	 * python mode only 
+	 * python mode only
 	 */
 	public void setVersion(int version) {
 		if (!Objects.equals(_version, version)) {
@@ -167,7 +221,7 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	}
 
 	/**
-	 * python mode only 
+	 * python mode only
 	 */
 	public void setSingleLineStringErrors(boolean singleLineStringErrors) {
 		if (!Objects.equals(_singleLineStringErrors, singleLineStringErrors)) {
@@ -175,19 +229,51 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 			smartUpdate("singleLineStringErrors", _singleLineStringErrors);
 		}
 	}
-	
+
 	public boolean isAutosize() {
 		return _autosize;
 	}
 
-	/**
-	 * Means the height is auto , 
-	 * the hieght will grow up when user typing instead of scroll.
-	 *  
-	 * If you set a height will cause this config not working .
-	 */
 	public void setAutosize(boolean autosize) {
 		this._autosize = autosize;
+	}
+
+	public void setTabIndex(int tabIndex) {
+		if (!Objects.equals(_tabIndex, tabIndex)) {
+			_tabIndex = tabIndex;
+			smartUpdate("tabIndex", _tabIndex);
+		}
+	}
+
+	public int getTabIndex() {
+		return _tabIndex;
+	}
+
+	public boolean isShowLineNumbers() {
+		return this._lineNumbers;
+	}
+
+	public void setShowLineNumbers(boolean linenumbers) {
+		if (!Objects.equals(this._lineNumbers, linenumbers)) {
+			this._lineNumbers = linenumbers;
+			smartUpdate("linenumbers", this._lineNumbers);
+		}
+	}
+
+	public int isReadyOnly() {
+		return this._readOnly;
+	}
+
+	public void setReadyOnly(boolean readonly) {
+		int newType = readonly ? TYPE_READONLY : TYPE_EDITABLE;
+		setReadyOnly(newType);
+	}
+
+	public void setReadyOnly(int readonlyType) {
+		if (!Objects.equals(this._readOnly, readonlyType)) {
+			this._readOnly = readonlyType;
+			smartUpdate("readonly", this._readOnly);
+		}
 	}
 
 }

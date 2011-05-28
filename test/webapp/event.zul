@@ -1,5 +1,5 @@
-<zk>
-	<codeeditor id="code" height="300px" width="300px" mode="html" >
+<zk xmlns:w="client">
+	<codeeditor id="editor" w:onFocus="zk.log('focus')"  w:onBlur="zk.log('blur')" width="300px" height="300px" mode="html" >
 		<attribute name="value"><![CDATA[
 <html style="color: green">
 <!-- this is a comment -->
@@ -25,5 +25,7 @@
 </html>
 		]]></attribute>
 	</codeeditor>
-	<button label="getValue" onClick="alert(code.getValue())" />
+	<zscript>
+		editor.focus();
+	</zscript>
 </zk>

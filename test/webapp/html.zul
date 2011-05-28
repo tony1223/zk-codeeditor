@@ -4,7 +4,7 @@
 		<vlayout>
 			html
 			<codeeditor mode="html" height="500px">
-				<attribute name="text"><![CDATA[
+				<attribute name="value"><![CDATA[
 		<html style="color: green">
 		<!-- this is a comment -->
 		<head>
