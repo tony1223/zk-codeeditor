@@ -1,5 +1,26 @@
-<zk>
-	<codeeditor id="code" height="300px" width="300px" mode="html" >
+<?page title="code editor demo" ?>
+<zk xmlns:n="native">
+	<n:pre >
+		This is a intergration between code-mirrow 2.01 and ZK ,
+		and code-mirrow (http://codemirror.net/) is a perfect editor . ;)
+
+		A lightway code editor which support the following language syntax hightlight. 
+			* JavaScript
+			* XML/HTML
+			* CSS
+			* HTML mixed-mode
+			* Python
+			* PHP
+			* diff
+			* C, Java, and similar
+			* sTeX, LaTeX
+			* Haskell
+			* Smalltalk
+			* reStructuredText
+			* PL/SQL
+	</n:pre>
+	
+	<codeeditor id="code" mode="html" onChange='alert("changed");'>
 		<attribute name="value"><![CDATA[
 <html style="color: green">
 <!-- this is a comment -->
@@ -25,5 +46,6 @@
 </html>
 		]]></attribute>
 	</codeeditor>
+	<textbox id="log" multiline="true" />
 	<button label="getValue" onClick="alert(code.getValue())" />
 </zk>
