@@ -20,7 +20,7 @@
 			* PL/SQL
 	</n:pre>
 	
-	<codeeditor id="code" mode="html" onChange='alert("changed");'>
+	<codeeditor id="code" mode="html" onChange='log.setValue("changed,\n"+code.getValue());'>
 		<attribute name="value"><![CDATA[
 <html style="color: green">
 <!-- this is a comment -->
@@ -46,6 +46,7 @@
 </html>
 		]]></attribute>
 	</codeeditor>
-	<textbox id="log" multiline="true" />
 	<button label="getValue" onClick="alert(code.getValue())" />
+	<textbox id="log" multiline="true" rows="10" cols="50"/>
+	
 </zk>
