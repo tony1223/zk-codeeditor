@@ -117,11 +117,17 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 				}
 				*/
 			};
-		if(this._mode == "html"){ //add some alises.
+		if (this._mode == "html") { //add some alises.
 			ret["mode"] = "text/html";
-		}else if(this._mode == "xhtml"){
+		} else if (this._mode == "xhtml") {
 			ret["mode"] = "xml";
 			ret["htmlMode"] = true;
+		} else if (this._mode == "c") {
+			ret["mode"] = "text/x-csrc";
+		} else if (this._mode == "c++") {
+			ret["mode"] = "text/x-c++src";
+		} else if (this._mode == "java") {
+			ret["mode"] = "text/x-java";
 		}
 		return ret;
 	},
