@@ -274,6 +274,15 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 		}
 	}
 
+	
+	public void setVflex(String flex) {
+		throw new UnsupportedOperationException("vflex is currently not supported by CodeEditor");
+	}
+	
+	public void setHflex(String hlex) {
+		throw new UnsupportedOperationException("hflex is currently not supported by CodeEditor");
+	}
+	
 	public int isReadyOnly() {
 		return this._readOnly;
 	}
