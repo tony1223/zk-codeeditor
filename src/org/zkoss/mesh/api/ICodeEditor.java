@@ -3,7 +3,7 @@ package org.zkoss.mesh.api;
 import org.zkoss.zk.ui.api.HtmlBasedComponent;
 
 /**
- * TODO not support sofar , but might support in future.
+ * TODO not support so far , but might support in future.
  * 	tabMode ,enterMode ,firstLineNumber ,
  * 		indentWithTabs ,indentUnit ,electricChars ,
  * 		gutter ,onGutterClick ,

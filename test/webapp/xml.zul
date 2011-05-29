@@ -1,6 +1,6 @@
 <zk>
 	<codeeditor mode="xml" >
-		<attribute name="value"><![CDATA[
+		<attribute name="value" hflex="1" vflex="1"><![CDATA[
 		<?xml version="1.0" encoding="UTF-8"?>
 		<?page title="Hello"?>
 		<zk>
