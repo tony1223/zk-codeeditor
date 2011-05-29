@@ -58,12 +58,26 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 
 	private int _tabIndex = -1;
 
+	
+	public CodeEditor() {
+		this(null,null);
+	}
+	
+	public CodeEditor(String mode){
+		this(mode,null);
+	}
+	
+	public CodeEditor(String mode,String value){
+		this._mode = mode;
+		this._value = value;
+	}
+	
 	// super//
 	protected void renderProperties(org.zkoss.zk.ui.sys.ContentRenderer renderer) throws java.io.IOException {
 		super.renderProperties(renderer);
 
 		render(renderer, "value", _value);
-		render(renderer, "mode", _mode);
+		render(renderer, "mode", (_mode != null ? _mode.toLowerCase() : _mode ));
 
 		if (_htmlMode)
 			render(renderer, "htmlMode", _htmlMode);

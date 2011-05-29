@@ -128,6 +128,11 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 			ret["mode"] = "text/x-c++src";
 		} else if (this._mode == "java") {
 			ret["mode"] = "text/x-java";
+		} else if (this._mode == "js") {
+			ret["mode"] = "javascript";
+		} else if (this._mode == "json") {
+			ret["mode"] = "javascript";
+			ret["json"] = true;
 		}
 		return ret;
 	},
