@@ -1,0 +1,37 @@
+<zk>
+	<window title="theme demo" border="normal">
+		Select your theme <combobox id="cb" onSelect="editor.setTheme((String)self.getSelectedItem().getValue());" >
+			<comboitem value="default">default</comboitem>
+			<comboitem value="night">night</comboitem>
+			<comboitem value="neat">neat</comboitem>
+			<comboitem value="elegant">elegant</comboitem>
+		</combobox>
+		
+		<codeeditor id="editor" mode="html" theme="default" >
+			<attribute name="value"><![CDATA[
+	<html style="color: green">
+	<!-- this is a comment -->
+	<head>
+	  <title>Mixed HTML Example</title>
+	  <style type="text/css">
+	    h1 {font-family: comic sans; color: #f0f;}
+	    div {background: yellow !important;}
+	    body {
+	      max-width: 50em;
+	      margin: 1em 2em 1em 5em;
+	    }
+	  </style>
+	</head>
+	<body>
+	  <h1>Mixed HTML Example</h1>
+	  <script>
+	    function jsFunc(arg1, arg2) {
+	      if (arg1 && arg2) document.body.innerHTML = "achoo";
+	    }
+	  </script>
+	</body>
+	</html>
+			]]></attribute>
+		</codeeditor>
+	</window>
+</zk>

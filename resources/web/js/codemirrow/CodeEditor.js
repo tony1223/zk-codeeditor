@@ -5,12 +5,19 @@ function delegater(member){
 	});
 }
 
+var updateModetehn = function () { //this function will be called after setText() .
+	if(this.desktop)
+		this._instance.setOption("mode", this._prapareMode());
+	
+};
+
 codemirrow.CodeEditor = zk.$extends(zk.Widget, {
     _value:'',
 	_instance:null,
 	_version:2,
 	_lineNumbers:true,
 	_readonly:0,
+	_theme:'default',
 	$define: {
 		autosize:function () {
 			if(this.desktop)
@@ -21,43 +28,16 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 				this._instance.setValue(this._value); 
 			
 		},
-		mode:function () {
-			
-			if(this._mode == "xhtml"){
-				this.setHtmlMode(true);
-			}
-			
-			if (this.desktop) {
-				if (this._mode == "xhtml") {
-					this._instance.setOption("mode", "xml");
-				}else if(this._mode == "html"){
-					this._instance.setOption("mode", "text/html");
-				}else{
-					this._instance.setOption("mode", this._mode);
-				}
-			}
-			
+		theme:function(){
+			if(this.desktop)
+				this._instance.setOption("theme", this._theme);
 		},
-		htmlMode:function () {
-			if (this.desktop) 
-				this._instance.setOption("htmlMode", this._htmlMode);
-		},
-		singleLineStringErrors:function () {
-			if (this.desktop) 
-				this._instance.setOption("singleLineStringErrors", this._singleLineStringErrors);
-		},
-		version:function () {
-			if (this.desktop) 
-				this._instance.setOption("version", this._version);
-		},
-		alignCDATA:function () {
-			if (this.desktop) 
-				this._instance.setOption("alignCDATA", this._alignCDATA);
-		},
-		verbatim:function () {
-			if (this.desktop) 
-				this._instance.setOption("verbatim", this._verbatim);
-		},
+		mode:updateModetehn,
+		htmlMode:updateModetehn,
+		singleLineStringErrors:updateModetehn,
+		version:updateModetehn,
+		alignCDATA:updateModetehn,
+		verbatim:updateModetehn,
 		lineNumbers:function () {
 			if (this.desktop) 
 				this._instance.setOption("lineNumbers", this._lineNumbers);
@@ -90,12 +70,7 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 	prepareInitOption_:function () {
 		var wgt = this,
 		  	ret = {
-				htmlMode:this._htmlMode,
-				singleLineStringErrors:this._singleLineStringErrors,
-				version:this._version,
-				alignCDATA:this._alignCDATA,
-				verbatim:this._verbatim,
-				mode:this._mode,
+				mode:this._prapareMode(),
 				lineNumbers:this._lineNumbers,
 				onFocus:function(){
 					wgt.fire("onFocus");
@@ -110,31 +85,52 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 					}
 					
 					wgt.fire("onBlur");
-				}
-				//it's actually onChanging ..not onChange.:-(
-				/*,
+				},
+				theme:this._theme,
+				/* 
+				 * it's actually onChanging ..not onChange.:-(
+				 */
 				onChange:function(instance){
+					var val = instance.getValue();
+					if (val != wgt._value) {
+						wgt._value = val;
+						wgt.fire("onChanging", {
+							value: val
+						});
+					}
 				}
-				*/
+				
 			};
-		if (this._mode == "html") { //add some alises.
-			ret["mode"] = "text/html";
-		} else if (this._mode == "xhtml") {
-			ret["mode"] = "xml";
-			ret["htmlMode"] = true;
-		} else if (this._mode == "c") {
-			ret["mode"] = "text/x-csrc";
-		} else if (this._mode == "c++") {
-			ret["mode"] = "text/x-c++src";
-		} else if (this._mode == "java") {
-			ret["mode"] = "text/x-java";
-		} else if (this._mode == "js") {
-			ret["mode"] = "javascript";
-		} else if (this._mode == "json") {
-			ret["mode"] = "javascript";
-			ret["json"] = true;
-		}
 		return ret;
+	},
+	_prapareMode:function(){
+		var mode = {
+			name:this._mode,
+			/*html options*/
+			htmlMode:this._htmlMode,
+			alignCDATA:this._alignCDATA,
+			verbatim:this._verbatim,
+			singleLineStringErrors:this._singleLineStringErrors,
+			version:this._version,					
+		};
+		if (this._mode == "html") { //add some alises.
+			mode = "text/html";
+		} else if (this._mode == "xhtml") {
+			mode.name = "xml";
+			mode.htmlMode = true;
+		} else if (this._mode == "c") {
+			mode.name = "text/x-csrc";
+		} else if (this._mode == "c++") {
+			mode.name = "text/x-c++src";
+		} else if (this._mode == "java") {
+			mode.name = "text/x-java";
+		} else if (this._mode == "js") {
+			mode.name = "javascript";
+		} else if (this._mode == "json") {
+			mode.name = "javascript";
+			mode.json = true;
+		}
+		return mode;
 	},
 	_getCodeMirror:function () {
 		return jq("> .CodeMirror",this);

@@ -31,12 +31,21 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	static {
 		addClientEvent(CodeEditor.class, Events.ON_CHANGE, CE_IMPORTANT | CE_DUPLICATE_IGNORE);
 	}
-
+	
+	public static final String THEME_DEFAULT = "default";
+	public static final String THEME_NIGHT = "night";
+	public static final String THEME_NEAT = "neat";
+	public static final String THEME_ELEGANT = "elegant";
+	
+	
 	private boolean _autosize;
 
 	private String _value;
 
 	private String _mode;
+	
+	
+	private String _theme = THEME_DEFAULT;
 
 	private boolean _htmlMode;
 
@@ -105,6 +114,9 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 
 		if (_readOnly != TYPE_EDITABLE)
 			render(renderer, "readOnly", _readOnly);
+		
+		if(!Objects.equals(_theme, THEME_DEFAULT))
+			render(renderer, "theme", _theme);
 	}
 
 	@Override
@@ -296,6 +308,19 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 		if (!Objects.equals(this._readOnly, readonlyType)) {
 			this._readOnly = readonlyType;
 			smartUpdate("readonly", this._readOnly);
+		}
+	}
+
+	
+	public String getTheme() {
+		return _theme;
+	}
+
+	
+	public void setTheme(String theme) {
+		if (!Objects.equals(this._theme, theme)) {
+			this._theme = theme;
+			smartUpdate("theme", this._theme);
 		}
 	}
 

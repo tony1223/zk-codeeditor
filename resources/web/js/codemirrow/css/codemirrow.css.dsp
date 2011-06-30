@@ -3,17 +3,21 @@
 
 
 <c:include page="~./js/codemirrow/lib/codemirror.css"/>
-<c:include page="~./js/codemirrow/lib/mode/clike/clike.css"/>
-<c:include page="~./js/codemirrow/lib/mode/css/css.css"/>
-<c:include page="~./js/codemirrow/lib/mode/diff/diff.css"/>
-<c:include page="~./js/codemirrow/lib/mode/haskell/haskell.css"/>
-<c:include page="~./js/codemirrow/lib/mode/javascript/javascript.css"/>
-<c:include page="~./js/codemirrow/lib/mode/plsql/plsql.css"/>
-<c:include page="~./js/codemirrow/lib/mode/python/python.css"/>
-<c:include page="~./js/codemirrow/lib/mode/rst/rst.css"/>
-<c:include page="~./js/codemirrow/lib/mode/smalltalk/smalltalk.css"/>
-<c:include page="~./js/codemirrow/lib/mode/stex/stex.css"/>
-<c:include page="~./js/codemirrow/lib/mode/xml/xml.css"/>
+
+/* default theme */
+<c:include page="~./js/codemirrow/lib/default.css"/>
+
+/* neat theme */
+<c:include page="~./js/codemirrow/lib/neat.css"/>
+
+/* Loosely based on the Midnight Textmate theme */
+/* night theme */
+<c:include page="~./js/codemirrow/lib/night.css"/>
+
+/* elegant theme */
+<c:include page="~./js/codemirrow/lib/elegant.css"/>
+
+
 
  .CodeMirror {
    border: 1px solid #eee;
