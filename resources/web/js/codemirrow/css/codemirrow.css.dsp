@@ -17,7 +17,8 @@
 /* elegant theme */
 <c:include page="~./js/codemirrow/lib/elegant.css"/>
 
-
+/* eclipse theme */
+<c:include page="~./js/codemirrow/lib/eclipse.css"/>
 
  .CodeMirror {
    border: 1px solid #eee;

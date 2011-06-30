@@ -113,22 +113,25 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 			singleLineStringErrors:this._singleLineStringErrors,
 			version:this._version,					
 		};
+		
 		if (this._mode == "html") { //add some alises.
 			mode = "text/html";
 		} else if (this._mode == "xhtml") {
 			mode.name = "xml";
 			mode.htmlMode = true;
 		} else if (this._mode == "c") {
-			mode.name = "text/x-csrc";
+			mode = "text/x-csrc";
 		} else if (this._mode == "c++") {
-			mode.name = "text/x-c++src";
+			mode = "text/x-c++src";
 		} else if (this._mode == "java") {
-			mode.name = "text/x-java";
+			mode = "text/x-java";
 		} else if (this._mode == "js") {
-			mode.name = "javascript";
+			mode = "javascript";
 		} else if (this._mode == "json") {
 			mode.name = "javascript";
 			mode.json = true;
+		} else if (this._mode == "css") {
+			mode = "css";
 		}
 		return mode;
 	},
