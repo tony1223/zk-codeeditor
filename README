@@ -1,6 +1,5 @@
 
-This is a project for ZK code mirrrow integrating ,
-integreated with CodeMirror-2.01.
+This is a project for ZK code mirrrow integrating ,integreated with CodeMirror-2.1.
 
 For the usage and test case ,
 please reference to zul file under "test/webapp".
@@ -43,3 +42,6 @@ The zul work like
 	<button label="getValue" onClick="alert(code.getValue())" />
 </zk>
 --------
+
+And we build a simple theme that more like eclipse style , 
+reference to "test\webapp" to see more real zul case. 
