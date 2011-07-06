@@ -111,7 +111,7 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 			alignCDATA:this._alignCDATA,
 			verbatim:this._verbatim,
 			singleLineStringErrors:this._singleLineStringErrors,
-			version:this._version,					
+			version:this._version					
 		};
 		
 		if (this._mode == "html") { //add some alises.
