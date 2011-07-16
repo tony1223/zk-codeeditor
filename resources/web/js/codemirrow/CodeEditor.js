@@ -92,12 +92,9 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 				 */
 				onChange:function(instance){
 					var val = instance.getValue();
-					if (val != wgt._value) {
-						wgt._value = val;
-						wgt.fire("onChanging", {
-							value: val
-						});
-					}
+					wgt.fire("onChanging", {
+						value: val
+					});
 				}
 				
 			};

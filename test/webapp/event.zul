@@ -1,5 +1,5 @@
 <zk xmlns:w="client">
-	<codeeditor id="editor" w:onFocus="zk.log('focus')"  w:onBlur="zk.log('blur')" width="300px" height="300px" mode="html" >
+	<codeeditor id="editor" onChange='alert(this.value)' w:onFocus="zk.log('focus')"  w:onBlur="zk.log('blur')" width="300px" height="300px" mode="html" >
 		<attribute name="value"><![CDATA[
 <html style="color: green">
 <!-- this is a comment -->
