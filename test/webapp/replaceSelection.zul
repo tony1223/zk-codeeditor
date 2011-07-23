@@ -1,0 +1,20 @@
+<zk xmlns:w="client">
+    <button id="btn" label="Test">
+        <attribute name="onClick"><![CDATA[
+            code.replaceSelection("test"); 
+        ]]></attribute>
+    </button>
+    <codeeditor id="code" mode="html" >
+   		<attribute name="onSelectionReplaced">
+			alert("before:"+event.getPreviousValue() +
+				"\nafter:\n"+ self.getValue());   		
+   		</attribute>
+        <attribute name="value"><![CDATA[
+  <script>
+    function jsFunc(arg1, arg2) {
+      if (arg1 && arg2) document.body.innerHTML = "achoo";
+    }
+  </script>
+        ]]></attribute>
+    </codeeditor>
+</zk>

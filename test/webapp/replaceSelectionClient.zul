@@ -1,0 +1,21 @@
+<zk xmlns:w="client">
+    <button id="btn" label="Test">
+        <attribute w:name="onClick"><![CDATA[
+            var code = zk.Widget.$('$code');
+                        code._instance.replaceSelection("hi"); 
+            code.fire("onChange", {
+                value: code._instance.getValue()
+            });
+        ]]></attribute>
+    </button>
+    <button label="Check value" onClick="alert(code.getValue());" />    
+    <codeeditor id="code" mode="html">
+        <attribute name="value"><![CDATA[
+  <script>
+    function jsFunc(arg1, arg2) {
+      if (arg1 && arg2) document.body.innerHTML = "achoo";
+    }
+  </script>
+        ]]></attribute>
+    </codeeditor>
+</zk>

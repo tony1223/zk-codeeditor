@@ -8,6 +8,7 @@ import org.zkoss.mesh.api.IPythonEditor;
 import org.zkoss.mesh.api.IReStructuredTextEditor;
 import org.zkoss.mesh.api.IXMLeditor;
 import org.zkoss.zk.au.AuRequest;
+import org.zkoss.zk.au.out.AuInvoke;
 import org.zkoss.zk.ui.HtmlBasedComponent;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.InputEvent;
@@ -28,15 +29,16 @@ import org.zkoss.zk.ui.event.InputEvent;
 public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPythonEditor, IReStructuredTextEditor,
 		IXMLeditor {
 
-	static {
-		addClientEvent(CodeEditor.class, Events.ON_CHANGE, CE_IMPORTANT | CE_DUPLICATE_IGNORE);
-	}
-	
 	public static final String THEME_DEFAULT = "default";
 	public static final String THEME_NIGHT = "night";
 	public static final String THEME_NEAT = "neat";
 	public static final String THEME_ELEGANT = "elegant";
+	public static final String ON_SELECTION_REPLACED = "onSelectionReplaced";
 	
+	static {
+		addClientEvent(CodeEditor.class, Events.ON_CHANGE, CE_IMPORTANT | CE_DUPLICATE_IGNORE);
+		addClientEvent(CodeEditor.class, ON_SELECTION_REPLACED, CE_IMPORTANT | CE_DUPLICATE_IGNORE);
+	}	
 	
 	private boolean _autosize;
 
@@ -122,7 +124,9 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	@Override
 	public void service(AuRequest request, boolean everError) {
 
-		if (Events.ON_CHANGE.equals(request.getCommand())) {
+		if (Events.ON_CHANGE.equals(request.getCommand())||
+				ON_SELECTION_REPLACED.equals(request.getCommand())		
+		) {
 			String value = this._value;
 			final Map data = request.getData();
 
@@ -311,6 +315,15 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 		}
 	}
 
+	/**
+	 * Note that the replaceSelection will not change the server side value directly ,
+	 * the value will update in next execution. 
+	 * or you could listen the event , onSelectionReplaced(InputEvent) to handle this.
+	 * @return
+	 */
+	public void replaceSelection(String newString){
+		response(new AuInvoke(this,"replaceSelection",newString));
+	}
 	
 	public String getTheme() {
 		return _theme;

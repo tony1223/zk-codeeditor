@@ -21,7 +21,7 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 	$define: {
 		autosize:function () {
 			if(this.desktop)
-				this._getCodeMirror().css("height","auto");
+				this.$nMirror().css("height","auto");
 		},
 		value: function () { //this function will be called after setText() .
 			if(this.desktop)
@@ -52,6 +52,15 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 			}
 		}
 		
+	},
+	replaceSelection:function (newString){
+		var inst;
+		if (inst = this._instance) {
+			inst.replaceSelection(newString);
+            this.fire("onSelectionReplaced", {
+                value: inst.getValue()
+            });			
+		}
 	},
 	undo:delegater("undo"),
 	redo:delegater("redo"),
@@ -132,8 +141,14 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 		}
 		return mode;
 	},
-	_getCodeMirror:function () {
+	$nMirror:function () {
 		return jq("> .CodeMirror",this);
+	},
+	/**
+	 * get Code mirror instance
+	 */
+	getMirror:function () {
+		return this._instance;
 	},
 	bind_:function () {
 		this.$supers(codemirrow.CodeEditor,'bind_', arguments);
@@ -146,7 +161,7 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 		//to prevent it send onChange.
 		
 		this._value = this._instance.getValue(); 
-		var wrap  = this._getCodeMirror();
+		var wrap  = this.$nMirror();
 		if(this._width)
 			wrap.css("width",this._width);
 
