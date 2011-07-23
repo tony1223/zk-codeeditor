@@ -1,4 +1,4 @@
-package org.zkoss.mesh.api;
+package org.zkoss.codemirror.api;
 
 
 public interface IPythonEditor extends ICodeEditor{

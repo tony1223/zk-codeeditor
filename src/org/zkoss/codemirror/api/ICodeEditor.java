@@ -1,4 +1,4 @@
-package org.zkoss.mesh.api;
+package org.zkoss.codemirror.api;
 
 import org.zkoss.zk.ui.api.HtmlBasedComponent;
 

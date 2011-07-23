@@ -2,11 +2,11 @@ package org.zkoss.codemirror;
 
 import java.util.Map;
 
+import org.zkoss.codemirror.api.ICodeEditor;
+import org.zkoss.codemirror.api.IPythonEditor;
+import org.zkoss.codemirror.api.IReStructuredTextEditor;
+import org.zkoss.codemirror.api.IXMLeditor;
 import org.zkoss.lang.Objects;
-import org.zkoss.mesh.api.ICodeEditor;
-import org.zkoss.mesh.api.IPythonEditor;
-import org.zkoss.mesh.api.IReStructuredTextEditor;
-import org.zkoss.mesh.api.IXMLeditor;
 import org.zkoss.zk.au.AuRequest;
 import org.zkoss.zk.au.out.AuInvoke;
 import org.zkoss.zk.ui.HtmlBasedComponent;
@@ -33,6 +33,8 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 	public static final String THEME_NIGHT = "night";
 	public static final String THEME_NEAT = "neat";
 	public static final String THEME_ELEGANT = "elegant";
+	public static final String THEME_ECLIPSE = "eclipse";
+	
 	public static final String ON_SELECTION_REPLACED = "onSelectionReplaced";
 	
 	static {
@@ -283,6 +285,9 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 		return this._lineNumbers;
 	}
 
+	/**
+	 * set if code mirror show linenumber
+	 */
 	public void setShowLineNumbers(boolean linenumbers) {
 		if (!Objects.equals(this._lineNumbers, linenumbers)) {
 			this._lineNumbers = linenumbers;
@@ -329,7 +334,16 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 		return _theme;
 	}
 
-	
+	/**
+	 * You could set the theme you want .
+	 * Currently supported 
+	public static final String THEME_DEFAULT = "default";
+	public static final String THEME_NIGHT = "night";
+	public static final String THEME_NEAT = "neat";
+	public static final String THEME_ELEGANT = "elegant";
+	public static final String THEME_ECLIPSE = "eclipse";
+	 * @param theme
+	 */
 	public void setTheme(String theme) {
 		if (!Objects.equals(this._theme, theme)) {
 			this._theme = theme;
