@@ -1,50 +1,5 @@
 
 This is a project for ZK code mirrrow integrating ,integreated with CodeMirror-2.1.
 
-For the usage and test case ,
-please reference to zul file under "test/webapp".
-
-
-Demo Video
-http://www.youtube.com/watch?v=DZSAcWK0oGY
-
-The zul work like
---------
-<zk>
-	<codeeditor id="code" height="300px" width="300px" mode="html" >
-		<attribute name="value"><![CDATA[
-<html style="color: green">
-<!-- this is a comment -->
-<head>
-  <title>Mixed HTML Example</title>
-  <style type="text/css">
-    h1 {font-family: comic sans; color: #f0f;}
-    div {background: yellow !important;}
-    body {
-      max-width: 50em;
-      margin: 1em 2em 1em 5em;
-    }
-  </style>
-</head>
-<body>
-  <h1>Mixed HTML Example</h1>
-  <script>
-    function jsFunc(arg1, arg2) {
-      if (arg1 && arg2) document.body.innerHTML = "achoo";
-    }
-  </script>
-</body>
-</html>
-		]]></attribute>
-	</codeeditor>
-	<button label="getValue" onClick="alert(code.getValue())" />
-</zk>
---------
-
-And we build a simple theme that more like eclipse style , 
-reference to "test\webapp" to see more real zul case. 
-
-==Version History ==
-0.9.4 add replaceSelection method and onSelectionReplaced event (InputEvent).
-0.9.3 upgrade built-in code-mirrror version
-0.9.0 first version
+For more details , please reference to 
+https://github.com/tony1223/zk-codeeditor/wiki/GettingStart
