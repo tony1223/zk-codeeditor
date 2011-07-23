@@ -2,10 +2,7 @@
     <button id="btn" label="Test">
         <attribute w:name="onClick"><![CDATA[
             var code = zk.Widget.$('$code');
-                        code._instance.replaceSelection("hi"); 
-            code.fire("onChange", {
-                value: code._instance.getValue()
-            });
+            code.replaceSelection("hi");
         ]]></attribute>
     </button>
     <button label="Check value" onClick="alert(code.getValue());" />    
