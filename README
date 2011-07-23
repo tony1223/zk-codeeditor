@@ -5,8 +5,6 @@ For the usage and test case ,
 please reference to zul file under "test/webapp".
 
 
-We will create a demo site soon.
-
 Demo Video
 http://www.youtube.com/watch?v=DZSAcWK0oGY
 
@@ -45,3 +43,8 @@ The zul work like
 
 And we build a simple theme that more like eclipse style , 
 reference to "test\webapp" to see more real zul case. 
+
+==Version History ==
+0.9.4 add replaceSelection method and onSelectionReplaced event (InputEvent).
+0.9.3 upgrade built-in code-mirrror version
+0.9.0 first version
