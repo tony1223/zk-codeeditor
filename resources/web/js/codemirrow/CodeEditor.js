@@ -44,14 +44,16 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 		},
 		readOnly:function () {
 			if (this.desktop) {
-				if(this._readOnly == codemirrow.CodeEditor.TYPE_READONLY_WITH_CURSOR )
-					this._instance.setOption("readOnly", "nocursor");
-				else
-					this._instance.setOption("readOnly", 
-						this._readOnly == codemirrow.CodeEditor.TYPE_READONLY );
+				this._instance.setOption("readOnly", this._getReadonlyValue());
 			}
 		}
 		
+	},
+	_getReadonlyValue:function(){
+		if(this._readOnly == codemirrow.CodeEditor.TYPE_READONLY )
+			return "nocursor";
+		else
+			return ( this._readOnly == codemirrow.CodeEditor.TYPE_READONLY_WITH_CURSOR );
 	},
 	replaceSelection:function (newString){
 		var inst;
@@ -84,6 +86,7 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 				onFocus:function(){
 					wgt.fire("onFocus");
 				},
+				readOnly:this._getReadonlyValue(),
 				onBlur :function(instance){
 					var val = instance.getValue();
 					if (val != wgt._value) {

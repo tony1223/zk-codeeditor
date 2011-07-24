@@ -304,18 +304,14 @@ public class CodeEditor extends HtmlBasedComponent implements ICodeEditor, IPyth
 		throw new UnsupportedOperationException("hflex is currently not supported by CodeEditor");
 	}
 	
-	public int isReadyOnly() {
+	public int isReadOnly() {
 		return this._readOnly;
 	}
 
-	public void setReadyOnly(boolean readonly) {
-		int newType = readonly ? TYPE_READONLY : TYPE_EDITABLE;
-		setReadyOnly(newType);
-	}
-
-	public void setReadyOnly(int readonlyType) {
-		if (!Objects.equals(this._readOnly, readonlyType)) {
-			this._readOnly = readonlyType;
+	public void setReadOnly(boolean readonly) {
+		int newType = readonly ? TYPE_READONLY_WITH_CURSOR : TYPE_EDITABLE;
+		if (!Objects.equals(this._readOnly, newType)) {
+			this._readOnly = newType;
 			smartUpdate("readonly", this._readOnly);
 		}
 	}

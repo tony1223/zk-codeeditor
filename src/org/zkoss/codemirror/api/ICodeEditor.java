@@ -59,26 +59,15 @@ public interface ICodeEditor extends HtmlBasedComponent {
 	 */
 	public void setShowLineNumbers(boolean linenumbers);
 	
-	public int isReadyOnly();
-	
-	/**
-	 * This disables editing of the editor content by the user. (Changes through API functions will still be possible.) If you also want to disable the cursor, use "nocursor" 
-	 * as a value for this option, instead of true.
-	 * 
-	 * @param readonly
-	 */
-	public void setReadyOnly(int readonlyType);
-	
+	public int isReadOnly();
+
 	/**
 	 * True means readonly but have cursor , 
 	 * false means editable.
 	 * 
-	 * If you want to set readonly without cursor,
-	 * please use {@link #setReadyOnly(int)} 
-	 * 
 	 * @param readonlyType
 	 */
-	public void setReadyOnly(boolean readonlyType);
+	public void setReadOnly(boolean readonlyType);
 
 
 }
