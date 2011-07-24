@@ -170,8 +170,6 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 
 		if(this._autosize)
 			wrap.css("height","auto");
-		else if(this._height)
-			wrap.css("height",this._height);
 	},
 
 	unbind_:function () {
