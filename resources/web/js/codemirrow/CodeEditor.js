@@ -8,7 +8,7 @@ function delegater(member){
 var updateModetehn = function () { //this function will be called after setText() .
 	if(this.desktop)
 		this._instance.setOption("mode", this._prapareMode());
-	
+
 };
 
 codemirrow.CodeEditor = zk.$extends(zk.Widget, {
@@ -20,13 +20,15 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 	_theme:'default',
 	$define: {
 		autosize:function () {
-			if(this.desktop)
+			if(this.desktop){
 				this.$nMirror().css("height","auto");
+				jq(".CodeMirror-scroll",this.$n()).css("height","auto");
+			}
 		},
 		value: function () { //this function will be called after setText() .
 			if(this.desktop)
-				this._instance.setValue(this._value); 
-			
+				this._instance.setValue(this._value);
+
 		},
 		theme:function(){
 			if(this.desktop)
@@ -39,7 +41,7 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 		alignCDATA:updateModetehn,
 		verbatim:updateModetehn,
 		lineNumbers:function () {
-			if (this.desktop) 
+			if (this.desktop)
 				this._instance.setOption("lineNumbers", this._lineNumbers);
 		},
 		readOnly:function () {
@@ -47,7 +49,12 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 				this._instance.setOption("readOnly", this._getReadonlyValue());
 			}
 		}
-		
+
+	},
+	setHeight:function(val){
+		this.$supers(codemirrow.CodeEditor,'setHeight', arguments);
+		if(this.desktop)
+			jq(".CodeMirror-scroll",this.$n()).css("height",val);
 	},
 	_getReadonlyValue:function(){
 		if(this._readOnly == codemirrow.CodeEditor.TYPE_READONLY )
@@ -61,20 +68,20 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 			inst.replaceSelection(newString);
             this.fire("onSelectionReplaced", {
                 value: inst.getValue()
-            });			
+            });
 		}
 	},
 	undo:delegater("undo"),
 	redo:delegater("redo"),
 	historySize:delegater("historySize"),
-	
+
 	focus_:function () {
 		var wgt = this;
 		if(this.desktop && this._instance)
 			this._instance.focus();
 		else  //Timing issue for init.
-			setTimeout(function(){ 
-				if(this.desktop && this._instance) 
+			setTimeout(function(){
+				if(this.desktop && this._instance)
 					this._instance.focus();
 			},200);
 	},
@@ -95,11 +102,11 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 							value: val
 						});
 					}
-					
+
 					wgt.fire("onBlur");
 				},
 				theme:this._theme,
-				/* 
+				/*
 				 * it's actually onChanging ..not onChange.:-(
 				 */
 				onChange:function(instance){
@@ -108,7 +115,7 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 						value: val
 					});
 				}
-				
+
 			};
 		return ret;
 	},
@@ -120,9 +127,9 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 			alignCDATA:this._alignCDATA,
 			verbatim:this._verbatim,
 			singleLineStringErrors:this._singleLineStringErrors,
-			version:this._version					
+			version:this._version
 		};
-		
+
 		if (this._mode == "html") { //add some alises.
 			mode = "text/html";
 		} else if (this._mode == "xhtml") {
@@ -158,18 +165,22 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 		this._instance = CodeMirror.fromTextArea(this.$n("real"),
 				this.prepareInitOption_()
 			);
-		
+
 		//TODO review this.
 		//The instance will trim the string , so we use the new value as value,
 		//to prevent it send onChange.
-		
-		this._value = this._instance.getValue(); 
-		var wrap  = this.$nMirror();
-		if(this._width)
-			wrap.css("width",this._width);
 
-		if(this._autosize)
+		this._value = this._instance.getValue();
+		var wrap  = this.$nMirror();
+		if(this._width){
+			wrap.css("width",this._width);
+		}
+		if(this._height){
+			jq(".CodeMirror-scroll",this.$n()).css("height",this._height);
+		}else if(this._autosize){
 			wrap.css("height","auto");
+			jq(".CodeMirror-scroll",this.$n()).css("height","auto");
+		}
 	},
 
 	unbind_:function () {

@@ -1,0 +1,52 @@
+<?page title="code editor demo" ?>
+<zk xmlns:n="native">
+	<n:pre >
+		This is a intergration between code-mirrow 2.01 and ZK ,
+		and code-mirrow (http://codemirror.net/) is a perfect editor . ;)
+
+		A lightway code editor which support the following language syntax hightlight.
+			* JavaScript
+			* XML/HTML
+			* CSS
+			* HTML mixed-mode
+			* Python
+			* PHP
+			* diff
+			* C, Java, and similar
+			* sTeX, LaTeX
+			* Haskell
+			* Smalltalk
+			* reStructuredText
+			* PL/SQL
+	</n:pre>
+
+	<codeeditor id="code" height="800px" mode="html" onChange='log.setValue("changed,\n"+code.getValue());'>
+		<attribute name="value"><![CDATA[
+<html style="color: green">
+<!-- this is a comment -->
+<head>
+  <title>Mixed HTML Example</title>
+  <style type="text/css">
+    h1 {font-family: comic sans; color: #f0f;}
+    div {background: yellow !important;}
+    body {
+      max-width: 50em;
+      margin: 1em 2em 1em 5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mixed HTML Example</h1>
+  <script>
+    function jsFunc(arg1, arg2) {
+      if (arg1 && arg2) document.body.innerHTML = "achoo";
+    }
+  </script>
+</body>
+</html>
+		]]></attribute>
+	</codeeditor>
+	<button label="getValue" onClick="alert(code.getValue())" />
+	<textbox id="log" multiline="true" rows="10" cols="50"/>
+
+</zk>
