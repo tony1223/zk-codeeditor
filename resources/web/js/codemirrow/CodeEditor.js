@@ -165,6 +165,7 @@ codemirrow.CodeEditor = zk.$extends(zk.Widget, {
 		this._instance = CodeMirror.fromTextArea(this.$n("real"),
 				this.prepareInitOption_()
 			);
+		this._instance.setValue(this._value);
 
 		//TODO review this.
 		//The instance will trim the string , so we use the new value as value,

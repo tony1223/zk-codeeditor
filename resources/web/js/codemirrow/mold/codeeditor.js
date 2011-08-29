@@ -4,7 +4,7 @@ function (out) {
 		uuid = this.uuid;
 
 	out.push('<div ', this.domAttrs_(), ' class="',zcls,'">',
-		'<textarea id="',uuid,'-real" class="',zcls,'-content">',this._value,'</textarea>',
+		'<textarea id="',uuid,'-real" class="',zcls,'-content"></textarea>',
 		'</div>');
 
 }
